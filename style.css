@@ -110,6 +110,7 @@ main {
   text-transform: uppercase;
   padding: 1rem 2rem;
   border-radius: 0.3rem;
+  cursor: pointer;
   color: #fff;
   background-color: #8707ff44;
 }
@@ -120,6 +121,11 @@ main {
   box-shadow: 1px 1px 5px 1px #7508db9d;
 }
 
+.selected {
+  background-color: #6b0ec29d;
+  border: 2px solid #373742;
+  box-shadow: 1px 1px 5px 1px #7508db9d;
+}
 /* ----------------------------------------------------Cards----------------------------------------------------- */
 
 .cards-section {
@@ -143,34 +149,49 @@ main {
   background-color: #17171ad0;
   border: 2px solid #373742;
   box-shadow: 1px 1px 15px 1px #7508db9d;
+  transition-duration: 0.3s;
+}
+
+.card:hover {
+  border: 2px solid #770303b7;
+  box-shadow: 1px 1px 15px 1px #c90404c0;
+  transform: translateY(-1rem);
 }
 
 .card img {
   width: 22rem;
   border: 1px solid rgb(0, 0, 0);
+  cursor: pointer;
 }
 
-.button-container {
+.buy-container {
   display: flex;
-  justify-content: right;
+  justify-content: space-around;
+  align-items: center;
   gap: 2rem;
 }
 
-.btn-add-cart,
-.btn-play {
+.price {
+  /* color: #7508db9d; */
+  font-size: 2rem;
+}
+
+.price span {
+  color: #db08089d;
+}
+
+.btn-add-cart {
   padding: 0.7rem;
   background-color: #ff272e8f;
   border-radius: 0.3rem;
   cursor: pointer;
 }
 
-.btn-add-cart:hover,
-.btn-play:hover {
+.btn-add-cart:hover {
   background-color: #ff272ed2;
 }
 
-.add-cart,
-.play-icon {
+.add-cart {
   font-size: 1.5rem;
   color: #fff;
 }
