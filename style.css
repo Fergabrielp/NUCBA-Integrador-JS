@@ -236,4 +236,78 @@ main {
   background-color: #080116;
 }
 
-/* ----------------------------------------------------Media Queries----------------------------------------------------- */
+/* ----------------------------------------------------Login/Register----------------------------------------------------- */
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 12rem auto;
+  width: 30rem;
+  padding: 2rem 0;
+  background-color: #17171ad0;
+  border: 2px solid #373742;
+  box-shadow: 1px 1px 15px 1px #7508db9d;
+  transition-duration: 1s;
+}
+
+.register {
+  border: 2px solid #831305;
+  box-shadow: 1px 1px 15px 1px #ff272e8f;
+}
+
+hr {
+  width: 20rem;
+  margin: 1rem;
+  box-shadow: 1px 1px 15px 1px #f3f0f08f;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.label-form {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.input-form {
+  padding: 0.5rem;
+  height: 2rem;
+  max-width: 19rem;
+}
+
+.btn-login {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 4rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #8707ff;
+}
+
+.btn-login:hover {
+  background-color: #460385;
+}
+
+.btn-register {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 4rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #ff272e8f;
+}
+
+.btn-register:hover {
+  background-color: #770d118f;
+}
+
+small a {
+  color: #8707ff;
+}
