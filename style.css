@@ -103,10 +103,10 @@ main {
 
 .category {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   margin-top: 3rem;
-  gap: 1rem 0;
+  gap: 1rem 4rem;
   flex-wrap: wrap;
 }
 
@@ -247,7 +247,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 12rem auto;
+  margin: 20vh auto;
   width: 30rem;
   padding: 2rem 0;
   background-color: #17171ad0;

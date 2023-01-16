@@ -1,12 +1,14 @@
-let cardContainer = document.getElementById('card-container')
-let btnBackPage = document.getElementById('btn-back-page')
-let btnNextPage = document.getElementById('btn-next-page')
-let numPage = document.getElementById('num-page')
-let categories = document.querySelector('.category')
+const cardContainer = document.getElementById('card-container')
+const btnBackPage = document.getElementById('btn-back-page')
+const btnNextPage = document.getElementById('btn-next-page')
+const numPage = document.getElementById('num-page')
+const categories = document.querySelectorAll('.btn-category')
 
 const pagination = {
     start: 0,
-    end: 20
+    end: 20,
+    categorie: 'best',
+    lengthData: 0
 }
 
 // ----------------------------------Configuración de la API-------------------------------
@@ -51,11 +53,15 @@ const renderCard = async (data, start, end) => {
 
 
 const backPage = () => {
+    cardContainer.innerHTML = ''
+    if (pagination.categorie == 'best') {
+        showBest()
+    } else showCategory(pagination.categorie)
 
     pagination.start -= 20
     pagination.end -= 20
     btnNextPage.classList.remove('display-none')
-    console.log(pagination.start, pagination.end)
+    // console.log(pagination.start, pagination.end)
 
     if (pagination.start < 11) {
         btnBackPage.className += ' display-none'
@@ -63,53 +69,80 @@ const backPage = () => {
         return
     }
 
-    cardContainer.innerHTML = ''
-    numPage.innerHTML = (pagination.start / 20)
-    showBest()
+    numPage.innerHTML = ((pagination.start / 20) + 1)
+
 }
 
 const nextPage = () => {
 
     pagination.start += 20
     pagination.end += 20
+    if (pagination.end > pagination.lengthData) {
+        btnNextPage.className += ' display-none'
+    }
     btnBackPage.classList.remove('display-none')
     console.log(pagination.start, pagination.end)
 
-    if (pagination.end >= 240) {
-        btnNextPage.className += ' display-none'
-    }
-
     cardContainer.innerHTML = ''
-    numPage.innerHTML = (pagination.start / 20)
-    showBest()
-
+    numPage.innerHTML = ((pagination.start / 20) + 1)
+    if (pagination.categorie == 'best') {
+        showBest()
+    } else showCategory(pagination.categorie)
+    console.log(pagination.lengthData)
 }
 
 const showBest = async () => {
     const dataFetched = await fetching('games')
+    pagination.lengthData = dataFetched.length
+    if (pagination.end > pagination.lengthData) {
+        btnNextPage.className += ' display-none'
+    }
     renderCard(dataFetched, pagination.start, pagination.end)
 }
 
 const showCategory = async (categorie) => {
+
     const dataFetched = await fetching(`games?category=${categorie}`)
+    pagination.lengthData = dataFetched.length
+    console.log(pagination.end, pagination.lengthData)
+    if (pagination.end > pagination.lengthData) {
+        btnNextPage.className += ' display-none'
+    }
     renderCard(dataFetched, pagination.start, pagination.end)
 }
 
-const changeCategory = (e) => {
+const selectCategorie = async (e) => {
+    pagination.start = 0
+    pagination.end = 20
+    numPage.innerHTML = ''
+    btnBackPage.className += ' display-none'
+    btnNextPage.classList.remove('display-none')
+    const categorySelected = e.target.dataset.category
+    pagination.categorie = categorySelected
+    const toDelete = document.getElementsByClassName('selected')
+    toDelete[0].classList.remove('selected')
+    cardContainer.innerHTML = ''
+    if (categorySelected == 'best') {
+        showBest()
+    }
 
+    e.target.classList.add('selected')
+    showCategory(categorySelected)
 }
-
+// const arrayLoco = categories.forEach(cat => console.log(cat))
 // -----------------------------------------------------------------------------------------------
 
 btnBackPage.addEventListener('click', backPage)
 btnNextPage.addEventListener('click', nextPage)
+categories.forEach(cat => { cat.addEventListener('click', selectCategorie) })
 
 
 const init = () => {
     showBest()
 }
 
-document.addEventListener("DOMContentLoaded", init);
+init()
+// document.addEventListener("DOMContentLoaded", init);
 
 
 
