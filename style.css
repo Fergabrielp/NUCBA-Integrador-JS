@@ -12,6 +12,9 @@ body {
   font-family: "Nunito", sans-serif;
 }
 
+.display-none {
+  display: none;
+}
 /* ----------------------------------------------------Header----------------------------------------------------- */
 
 .header {
@@ -100,9 +103,10 @@ main {
 
 .category {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
   margin-top: 3rem;
-  gap: 2rem;
+  gap: 1rem 0;
   flex-wrap: wrap;
 }
 
@@ -123,8 +127,8 @@ main {
 
 .selected {
   background-color: #6b0ec29d;
-  border: 2px solid #373742;
-  box-shadow: 1px 1px 5px 1px #7508db9d;
+  border: 2px solid #770303b7;
+  box-shadow: 1px 1px 15px 1px #c90404c0;
 }
 /* ----------------------------------------------------Cards----------------------------------------------------- */
 
@@ -213,16 +217,16 @@ main {
   background-color: #8707ff;
 }
 
-.btn-page-num {
-  width: 3rem;
-  cursor: pointer;
-  color: #fff;
-  background-color: #8707ff;
+.btn-page:hover {
+  background-color: #31055a;
 }
 
-.btn-page:hover,
-.btn-page-num:hover {
-  background-color: #31055a;
+.num-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /* ----------------------------------------------------Footer----------------------------------------------------- */

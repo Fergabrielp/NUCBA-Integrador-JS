@@ -1,6 +1,17 @@
 let cardContainer = document.getElementById('card-container')
+let btnBackPage = document.getElementById('btn-back-page')
+let btnNextPage = document.getElementById('btn-next-page')
+let numPage = document.getElementById('num-page')
+let categories = document.querySelector('.category')
 
-// Conexion a la API
+const pagination = {
+    start: 0,
+    end: 20
+}
+
+// ----------------------------------Configuración de la API-------------------------------
+
+const urlBase = 'https://free-to-play-games-database.p.rapidapi.com/api/'
 
 const options = {
     method: 'GET',
@@ -10,12 +21,7 @@ const options = {
     }
 };
 
-const urlBase = 'https://free-to-play-games-database.p.rapidapi.com/api/'
-
-const pagination = {
-    start: 20,
-    end: 40
-}
+// ---------------------------------------------------------------------------------------
 
 const fetching = async (urlFilter) => {
     const res = await fetch(urlBase + urlFilter, options)
@@ -23,7 +29,7 @@ const fetching = async (urlFilter) => {
     return data
 }
 
-const renderCard = async (data, start = 0, end = 20) => {
+const renderCard = async (data, start, end) => {
     const sliceArray = data.slice(start, end)
     const arrayCards = await sliceArray.map(card => {
         cardContainer.innerHTML +=
@@ -32,7 +38,7 @@ const renderCard = async (data, start = 0, end = 20) => {
         <h3>${card.title}</h3>
         <p>${card.short_description}</p>
         <div class="buy-container">
-            <h2 class="price"><span>U$D</span>${' ' + (card.id / 6.63).toFixed(2)}</h2>
+            <h2 class="price"><span>U$D</span>${' ' + (card.id / 5).toFixed(2)}</h2>
             <button class="btn-add-cart">
                 <i class="fa-sharp fa-solid fa-cart-plus add-cart"></i>
             </button>
@@ -44,7 +50,42 @@ const renderCard = async (data, start = 0, end = 20) => {
 }
 
 
-const showAll = async () => {
+const backPage = () => {
+
+    pagination.start -= 20
+    pagination.end -= 20
+    btnNextPage.classList.remove('display-none')
+    console.log(pagination.start, pagination.end)
+
+    if (pagination.start < 11) {
+        btnBackPage.className += ' display-none'
+        numPage.innerHTML = ''
+        return
+    }
+
+    cardContainer.innerHTML = ''
+    numPage.innerHTML = (pagination.start / 20)
+    showBest()
+}
+
+const nextPage = () => {
+
+    pagination.start += 20
+    pagination.end += 20
+    btnBackPage.classList.remove('display-none')
+    console.log(pagination.start, pagination.end)
+
+    if (pagination.end >= 240) {
+        btnNextPage.className += ' display-none'
+    }
+
+    cardContainer.innerHTML = ''
+    numPage.innerHTML = (pagination.start / 20)
+    showBest()
+
+}
+
+const showBest = async () => {
     const dataFetched = await fetching('games')
     renderCard(dataFetched, pagination.start, pagination.end)
 }
@@ -54,16 +95,22 @@ const showCategory = async (categorie) => {
     renderCard(dataFetched, pagination.start, pagination.end)
 }
 
-showCategory('shooter')
+const changeCategory = (e) => {
 
-// showAll()
+}
 
-// const init = () => {
-//     fetching(`games`)
+// -----------------------------------------------------------------------------------------------
 
-// }
+btnBackPage.addEventListener('click', backPage)
+btnNextPage.addEventListener('click', nextPage)
 
-// init()
+
+const init = () => {
+    showBest()
+}
+
+document.addEventListener("DOMContentLoaded", init);
+
 
 
 

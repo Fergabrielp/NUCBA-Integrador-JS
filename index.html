@@ -31,9 +31,9 @@
         <img src="/assets/img/joystick.png" alt="Logo image" />
       </div>
       <nav class="nav">
-        <li class="nav-item"><a href="#">Home</a></li>
+        <li class="nav-item"><a href="/">Home</a></li>
         <li class="nav-item"><a href="/login.html">Login</a></li>
-        <li class="nav-item"><a href="#">Mis juegos</a></li>
+        <li class="nav-item"><a href="#">My Games</a></li>
         <div class="cart-label">
           <i class="fa-sharp fa-solid fa-cart-shopping cart-icon">
             <div class="cart-bubble">15</div>
@@ -45,7 +45,7 @@
     <main>
       <section class="hero">
         <div class="hero-text">
-          Los juegos que siempre quisiste y al mejor precio.
+          The games you always wanted, at the best price.
         </div>
         <div class="hero-img">
           <img src="/assets/img/joystick.png" alt="Hero image" />
@@ -53,12 +53,32 @@
       </section>
 
       <section class="category">
-        <button class="btn-category selected">⚡ Ofertas relámpago ⚡</button>
-        <button class="btn-category">🌍 Aventura 🌍</button>
-        <button class="btn-category">🔫 Disparos 🔫</button>
-        <button class="btn-category">🔎 Estrategia 🔍</button>
-        <button class="btn-category">🏈 Deportes 🏈</button>
-        <button class="btn-category">🎮 Arcade 🎮</button>
+        <button class="btn-category selected" data-category="best">
+          🌟 The best 🌟
+        </button>
+        <button class="btn-category" data-category="mmorpg">
+          🌍 MMORPG 🌍
+        </button>
+        <button class="btn-category" data-category="shooter">
+          🔫 Shooter 🔫
+        </button>
+        <button class="btn-category" data-category="anime">💢 Anime 💢</button>
+        <button class="btn-category" data-category="strategy">
+          🔎 Strategy 🔍
+        </button>
+        <button class="btn-category" data-category="fantasy">
+          🐲 Fantasy 🐲
+        </button>
+        <button class="btn-category" data-category="scifi">👾 Sci-Fi 👾</button>
+        <button class="btn-category" data-category="racing">
+          🚗 Racing 🚗
+        </button>
+        <button class="btn-category" data-category="social">
+          👨‍👩‍👦‍👦 Social 👨‍👩‍👦‍👦
+        </button>
+        <button class="btn-category" data-category="sports">
+          🏈 Sports 🏈
+        </button>
       </section>
 
       <section class="cards-section">
@@ -83,13 +103,11 @@
       </section>
 
       <section class="pagination">
-        <button class="btn-page">
+        <button class="btn-page display-none" id="btn-back-page">
           <i class="fa-solid fa-arrow-left"></i>
         </button>
-        <button class="btn-page-num">2</button>
-        <button class="btn-page-num">3</button>
-        <button class="btn-page-num">4</button>
-        <button class="btn-page">
+        <p class="num-page" id="num-page"></p>
+        <button class="btn-page" id="btn-next-page">
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </section>
