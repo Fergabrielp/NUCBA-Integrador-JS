@@ -33,7 +33,7 @@ const fetching = async (urlFilter) => {
     showSpinner(true)
     const res = await fetch(urlBase + urlFilter, options)
     const data = await res.json()
-    return [data]
+    return data
 }
 
 const renderCard = async (data, start, end) => {
