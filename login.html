@@ -27,14 +27,24 @@
   </head>
   <body>
     <div class="login-card">
+      <div class="back-icon">
+        <a href="/index.html"><i class="fa-solid fa-caret-left"></i></a>
+      </div>
       <h1 class="login-title">Login</h1>
       <hr />
       <form class="login-form">
-        <label class="label-form" for="">Email</label>
-        <input class="input-form" type="email" />
-        <label class="label-form" for="">Contraseña</label>
-        <input class="input-form" type="password" />
-
+        <div>
+          <label class="label-form" for=""
+            ><i class="fa-regular fa-envelope"></i
+          ></label>
+          <input class="input-form" type="email" placeholder="user@user.com" />
+        </div>
+        <div>
+          <label class="label-form" for=""
+            ><i class="fa-solid fa-lock"></i
+          ></label>
+          <input class="input-form" type="password" placeholder="password" />
+        </div>
         <button class="btn-login" type="submit">Login</button>
         <small>No tienes cuenta? <a href="/register.html">Registrate</a></small>
       </form>

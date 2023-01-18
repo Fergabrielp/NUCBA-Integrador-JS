@@ -27,16 +27,34 @@
   </head>
   <body>
     <div class="login-card register">
+      <div class="back-icon-register">
+        <a href="/index.html"><i class="fa-solid fa-caret-left"></i></a>
+      </div>
       <h1 class="login-title">Register</h1>
       <hr />
       <form class="login-form">
-        <label class="label-form" for="">Email</label>
-        <input class="input-form" type="email" />
-        <label class="label-form" for="">Contraseña</label>
-        <input class="input-form" type="password" />
-        <label class="label-form" for="">Repetir contraseña</label>
-        <input class="input-form" type="password" />
-
+        <div>
+          <label class="label-form" for=""
+            ><i class="fa-regular fa-envelope"></i
+          ></label>
+          <input class="input-form" type="email" placeholder="user@user.com" />
+        </div>
+        <div>
+          <label class="label-form" for="">
+            <i class="fa-solid fa-unlock"></i
+          ></label>
+          <input class="input-form" type="password" placeholder="password" />
+        </div>
+        <div>
+          <label class="label-form" for=""
+            ><i class="fa-solid fa-lock"></i
+          ></label>
+          <input
+            class="input-form"
+            type="password"
+            placeholder="repeat password"
+          />
+        </div>
         <button class="btn-register" type="submit">Registrarse</button>
         <small>¿Ya tienes una cuenta? <a href="/login.html">Login</a></small>
       </form>

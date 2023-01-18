@@ -256,6 +256,8 @@ main {
   border: 2px solid #373742;
   box-shadow: 1px 1px 15px 1px #7508db9d;
   transition-duration: 1s;
+  position: relative;
+  gap: 1rem;
 }
 
 .register {
@@ -269,23 +271,49 @@ hr {
   box-shadow: 1px 1px 15px 1px #f3f0f08f;
 }
 
+.back-icon a {
+  position: absolute;
+  bottom: 29rem;
+  left: 25rem;
+  font-size: 4rem;
+  color: #8707ff;
+}
+
+.back-icon a:hover {
+  color: #460385;
+}
+
+.back-icon-register a {
+  position: absolute;
+  bottom: 35rem;
+  left: 25rem;
+  font-size: 4rem;
+  color: #e01313b6;
+}
+
+.back-icon-register a:hover {
+  color: #a50a0ab6;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .label-form {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  margin-right: 2rem;
 }
 
 .input-form {
   padding: 0.5rem;
-  height: 2rem;
+  height: 2.3rem;
   max-width: 19rem;
+  font-size: larger;
 }
 
 .btn-login {
@@ -312,6 +340,10 @@ hr {
 
 .btn-register:hover {
   background-color: #770d118f;
+}
+
+small {
+  font-size: 1rem;
 }
 
 small a {
