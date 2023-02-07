@@ -5,12 +5,14 @@ const numPage = document.getElementById('num-page')
 const spinner = document.getElementById('spinner')
 const categories = document.querySelectorAll('.btn-category')
 const cart = document.querySelector('.cart-icon')
+const cartMenu = document.getElementById('cart')
+const overlay = document.querySelector('.overlay');
 
 
 const pagination = {
     start: 0,
-    end: 20,
-    categorie: 'best',
+    end: 12,
+    category: 'best',
     lengthData: 0
 }
 
@@ -76,12 +78,12 @@ const showSpinner = (condition) => {
 
 const backPage = () => {
     cardContainer.innerHTML = ''
-    if (pagination.categorie == 'best') {
+    if (pagination.category == 'best') {
         showBest()
-    } else showCategory(pagination.categorie)
+    } else showCategory(pagination.category)
 
-    pagination.start -= 20
-    pagination.end -= 20
+    pagination.start -= 12
+    pagination.end -= 12
     btnNextPage.classList.remove('display-none')
 
     if (pagination.start < 11) {
@@ -90,24 +92,28 @@ const backPage = () => {
         return
     }
 
-    numPage.innerHTML = ((pagination.start / 20) + 1)
+    numPage.innerHTML = ((pagination.start / 12) + 1)
 
 }
 
 const nextPage = () => {
+    window.scroll({
+        top: 500,
+        behavior: 'smooth'
+    });
 
-    pagination.start += 20
-    pagination.end += 20
+    pagination.start += 12
+    pagination.end += 12
     if (pagination.end > pagination.lengthData) {
         btnNextPage.className += ' display-none'
     }
     btnBackPage.classList.remove('display-none')
 
     cardContainer.innerHTML = ''
-    numPage.innerHTML = ((pagination.start / 20) + 1)
-    if (pagination.categorie == 'best') {
+    numPage.innerHTML = ((pagination.start / 12) + 1)
+    if (pagination.category == 'best') {
         showBest()
-    } else showCategory(pagination.categorie)
+    } else showCategory(pagination.category)
 }
 
 const showBest = async () => {
@@ -119,9 +125,9 @@ const showBest = async () => {
     renderCard(dataFetched, pagination.start, pagination.end)
 }
 
-const showCategory = async (categorie) => {
+const showCategory = async (category) => {
 
-    const dataFetched = await fetching(`games?category=${categorie}`)
+    const dataFetched = await fetching(`games?category=${category}`)
     pagination.lengthData = dataFetched.length
     if (pagination.end > pagination.lengthData) {
         btnNextPage.className += ' display-none'
@@ -129,15 +135,15 @@ const showCategory = async (categorie) => {
     renderCard(dataFetched, pagination.start, pagination.end)
 }
 
-const selectCategorie = async (e) => {
+const selectCategory = async (e) => {
 
     pagination.start = 0
-    pagination.end = 20
+    pagination.end = 12
     numPage.innerHTML = ''
     btnBackPage.className += ' display-none'
     btnNextPage.classList.remove('display-none')
     const categorySelected = e.target.dataset.category
-    pagination.categorie = categorySelected
+    pagination.category = categorySelected
     const toDelete = document.getElementsByClassName('selected')
     toDelete[0].classList.remove('selected')
     cardContainer.innerHTML = ''
@@ -149,12 +155,23 @@ const selectCategorie = async (e) => {
     e.target.classList.add('selected')
 }
 
-const cartHandler = () => {
-    console.log("Abriendo carrito...")
+const toggleCart = () => {
+    cartMenu.classList.toggle('open-cart');
+    overlay.classList.toggle('show-overlay');
+};
+
+const scrollClosing = () => {
+    cartMenu.classList.remove('open-cart');
+    overlay.classList.remove('show-overlay');
+}
+
+const OverlayClosing = () => {
+    scrollClosing()
 }
 
 const addToCart = () => {
     console.log("Agregando al carrito...")
+    cartMenu.className += ' hide-cart'
 }
 // -----------------------------------------------------------------------------------------------
 
@@ -162,10 +179,12 @@ const addToCart = () => {
 
 const init = () => {
     showBest()
-    categories.forEach(cat => { cat.addEventListener('click', selectCategorie) })
+    categories.forEach(cat => { cat.addEventListener('click', selectCategory) })
     btnBackPage.addEventListener('click', backPage)
     btnNextPage.addEventListener('click', nextPage)
-    cart.addEventListener('click', cartHandler)
+    cart.addEventListener('click', toggleCart)
+    window.addEventListener('scroll', scrollClosing);
+    overlay.addEventListener('click', OverlayClosing);
 
 }
 

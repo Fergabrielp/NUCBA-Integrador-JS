@@ -20,7 +20,11 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 2rem;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  background-color: #17171a;
 }
 
 .logo-img img {
@@ -39,6 +43,11 @@ body {
 
 .nav-item a:hover {
   color: #8707ff;
+}
+
+.open-cart {
+  transform: translate(0%);
+  transition: all 0.5s cubic-bezier(0.92, 0.01, 0.35, 0.99);
 }
 
 .cart-icon {
@@ -67,6 +76,79 @@ body {
   color: rgb(255, 255, 255);
 }
 
+.cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 65px;
+  right: 0;
+  padding: 2rem 2rem;
+  background-color: #17171a;
+  border: 2px solid #373742;
+  box-shadow: 1px 1px 15px 1px #7508db9d;
+  gap: 30px;
+  height: calc(100vh - 65px);
+  overflow-y: scroll;
+  z-index: 2;
+  min-width: 375px;
+  transform: translateX(200%);
+  transition: all 0.2s cubic-bezier(0.92, 0.01, 0.35, 0.99);
+}
+
+.open-cart {
+  transform: translate(0%);
+  transition: all 0.2s cubic-bezier(0.92, 0.01, 0.35, 0.99);
+}
+
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border: 2px solid #373742;
+  box-shadow: 1px 1px 5px 1px #7508db9d;
+  gap: 2rem;
+}
+
+.cart::-webkit-scrollbar {
+  display: none;
+}
+
+.cart-name,
+.cart-price,
+.cart-title {
+  font-weight: bold;
+}
+
+.cart-input {
+  background-color: transparent;
+  text-align: center;
+  width: 3rem;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  padding: 0.5 0.1rem;
+  border: 2px solid #373742;
+  border-radius: 0.5rem;
+}
+
+.cart-price span,
+.cart-total-price span {
+  color: #db08089d;
+}
+
+.cart-total-container {
+  display: flex;
+  gap: 6rem;
+}
+
+.cart-total,
+.cart-total-price {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
 /* ----------------------------------------------------Hero----------------------------------------------------- */
 
 main {
@@ -77,7 +159,7 @@ main {
 .hero {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   background-image: url("/assets/img/bg.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -88,15 +170,9 @@ main {
 }
 
 .hero-text {
-  display: flex;
-  max-width: 50rem;
+  max-width: 60rem;
   font-family: "Anton", sans-serif;
   font-size: 5rem;
-  margin-left: 2rem;
-}
-
-.hero-img img {
-  max-height: 26rem;
 }
 
 /* ----------------------------------------------------Categories----------------------------------------------------- */
@@ -106,7 +182,7 @@ main {
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
-  gap: 1rem 4rem;
+  gap: 1rem 3rem;
   flex-wrap: wrap;
 }
 
@@ -139,9 +215,11 @@ main {
 .cards-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  max-width: 130rem;
   gap: 2rem;
   flex-wrap: wrap;
-  margin: 1rem 0;
+  margin: 1rem auto;
 }
 
 .card {
@@ -150,6 +228,7 @@ main {
   justify-content: space-around;
   gap: 1rem;
   width: 25rem;
+  height: 30rem;
   padding: 1rem;
   background-color: #17171ad0;
   border: 2px solid #373742;
@@ -172,14 +251,13 @@ main {
 
 .buy-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
 }
 
 .price {
-  /* color: #7508db9d; */
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .price span {
@@ -348,6 +426,27 @@ small {
 
 small a {
   color: #8707ff;
+}
+
+/* -----------------------------------Overlay--------------------------------------------------------- */
+
+.overlay {
+  position: absolute;
+  top: 65px;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  /*Efecto de Glassmorphismo*/
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: none;
+}
+
+.show-overlay {
+  display: block;
 }
 
 /* ----------------------------------------Spinner------------------------------------------------------ */
