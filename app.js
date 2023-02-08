@@ -1,20 +1,33 @@
+
+
 const cardContainer = document.getElementById('card-container')
 const btnBackPage = document.getElementById('btn-back-page')
 const btnNextPage = document.getElementById('btn-next-page')
 const numPage = document.getElementById('num-page')
 const spinner = document.getElementById('spinner')
 const categories = document.querySelectorAll('.btn-category')
-const cart = document.querySelector('.cart-icon')
+const cartIcon = document.querySelector('.cart-icon')
 const cartMenu = document.getElementById('cart')
 const overlay = document.querySelector('.overlay');
+const cartContainer = document.getElementById('cart-container')
+const cartBubble = document.querySelector('.cart-bubble')
+
 
 
 const pagination = {
     start: 0,
     end: 12,
-    category: 'best',
+    category: 'all',
     lengthData: 0
 }
+
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+
+const saveLocalStorage = cartList => {
+    localStorage.setItem('cart', JSON.stringify(cartList));
+};
 
 
 // ----------------------------------Configuración de la API-------------------------------
@@ -42,18 +55,25 @@ const renderCard = async (data, start, end) => {
     showSpinner(false)
     const sliceArray = data.slice(start, end)
     const arrayCards = await sliceArray.map(card => {
+        const price = (card.id / 5).toFixed(2)
         cardContainer.innerHTML +=
             `<div class="card">
                 <img src=${card.thumbnail} alt=${card.title}/>
                 <h3>${card.title}</h3>
                 <p>${card.short_description}</p>
                 <div class="buy-container">
-                <h2 class="price"><span>U$D</span>${' ' + (card.id / 5).toFixed(2)}</h2>
-                <button class="btn-add-cart" data-id=${card.id}>
-                <i class="fa-sharp fa-solid fa-cart-plus add-cart"></i>
-                </button>
+                    <h2 class="price"><span>U$D</span>${' ' + price}</h2>
+                    <button 
+                        class="btn-add-cart" 
+                        data-id=${card.id}
+                        data-title=${card.title}
+                        data-img=${card.thumbnail}
+                        data-price=${price}
+                        >
+                        🛒
+                        </button>
                 </div>
-                </div>`
+            </div>`
     })
 
     return arrayCards
@@ -78,8 +98,8 @@ const showSpinner = (condition) => {
 
 const backPage = () => {
     cardContainer.innerHTML = ''
-    if (pagination.category == 'best') {
-        showBest()
+    if (pagination.category == 'all') {
+        showAll()
     } else showCategory(pagination.category)
 
     pagination.start -= 12
@@ -111,12 +131,12 @@ const nextPage = () => {
 
     cardContainer.innerHTML = ''
     numPage.innerHTML = ((pagination.start / 12) + 1)
-    if (pagination.category == 'best') {
-        showBest()
+    if (pagination.category == 'all') {
+        showAll()
     } else showCategory(pagination.category)
 }
 
-const showBest = async () => {
+const showAll = async () => {
     const dataFetched = await fetching('games')
     pagination.lengthData = dataFetched.length
     if (pagination.end > pagination.lengthData) {
@@ -147,8 +167,8 @@ const selectCategory = async (e) => {
     const toDelete = document.getElementsByClassName('selected')
     toDelete[0].classList.remove('selected')
     cardContainer.innerHTML = ''
-    if (categorySelected == 'best') {
-        showBest()
+    if (categorySelected == 'all') {
+        showAll()
     } else {
         showCategory(categorySelected)
     }
@@ -169,23 +189,63 @@ const OverlayClosing = () => {
     scrollClosing()
 }
 
-const addToCart = () => {
-    console.log("Agregando al carrito...")
-    cartMenu.className += ' hide-cart'
+const createCartProduct = product => {
+    cart = [...cart, { ...product, units: 1 }];
+};
+
+const renderCart = product => {
+    const { title, price, img } = product
+
+    return cartContainer.innerHTML += `
+             <div class="cart-model">
+                <div class="cart-img">
+                <img
+                    src="${img}"
+                    alt="Hero image"
+                    height="50px"
+                />
+                </div>
+                <div class="cart-name">${title}</div>
+                <div class="cart-price"><span>$</span> ${price}</div>
+                <input type="number" class="cart-input" min="1" max="99" />
+            </div>`
 }
+
+const addProduct = e => {
+
+    if (!e.target.classList.contains('btn-add-cart')) return;
+    const { id, title, price, img } = e.target.dataset;
+    const product = { id, title, price, img }
+    if (!isExistingProduct(product)) {
+        createCartProduct(product)
+        renderCart(product)
+        cartBubble.innerHTML = Number(cartBubble.textContent) + 1
+        swal("Product added to Cart!", {
+            buttons: false,
+            timer: 1500,
+        });
+    } else {
+        swal("You've added another unit!", {
+            buttons: false,
+            timer: 1500,
+        });
+    }
+};
+
+const isExistingProduct = (product) => cart.some(game => game.id === product.id)
 // -----------------------------------------------------------------------------------------------
 
 
 
 const init = () => {
-    showBest()
+    showAll()
     categories.forEach(cat => { cat.addEventListener('click', selectCategory) })
     btnBackPage.addEventListener('click', backPage)
     btnNextPage.addEventListener('click', nextPage)
-    cart.addEventListener('click', toggleCart)
+    cartIcon.addEventListener('click', toggleCart)
     window.addEventListener('scroll', scrollClosing);
     overlay.addEventListener('click', OverlayClosing);
-
+    cardContainer.addEventListener('click', addProduct)
 }
 
 document.addEventListener("DOMContentLoaded", init);
