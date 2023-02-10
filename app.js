@@ -1,5 +1,3 @@
-
-
 const cardContainer = document.getElementById('card-container')
 const btnBackPage = document.getElementById('btn-back-page')
 const btnNextPage = document.getElementById('btn-next-page')
@@ -11,7 +9,6 @@ const cartMenu = document.getElementById('cart')
 const overlay = document.querySelector('.overlay');
 const cartContainer = document.getElementById('cart-container')
 const cartBubble = document.querySelector('.cart-bubble')
-
 
 
 const pagination = {
@@ -193,11 +190,10 @@ const createCartProduct = product => {
     cart = [...cart, { ...product, units: 1 }];
 };
 
-const renderCart = product => {
-    const { title, price, img } = product
-
-    return cartContainer.innerHTML += `
-             <div class="cart-model">
+const renderCartProduct = product => {
+    const { title, price, img, units } = product
+    return `
+    <div class="cart-model">
                 <div class="cart-img">
                 <img
                     src="${img}"
@@ -207,8 +203,14 @@ const renderCart = product => {
                 </div>
                 <div class="cart-name">${title}</div>
                 <div class="cart-price"><span>$</span> ${price}</div>
-                <input type="number" class="cart-input" min="1" max="99" />
+                <div class="cart-quantity">
+                <i class="fa-solid fa-caret-up cart-quantity-up"></i>${units}<i class="fa-solid fa-caret-down cart-quantity-down"></i>
+              </div>
             </div>`
+};
+
+const renderCart = () => {
+    cartContainer.innerHTML = cart.map(renderCartProduct).join('');
 }
 
 const addProduct = e => {
@@ -218,8 +220,6 @@ const addProduct = e => {
     const product = { id, title, price, img }
     if (!isExistingProduct(product)) {
         createCartProduct(product)
-        renderCart(product)
-        cartBubble.innerHTML = Number(cartBubble.textContent) + 1
         swal("Product added to Cart!", {
             buttons: false,
             timer: 1500,
@@ -230,11 +230,45 @@ const addProduct = e => {
             timer: 1500,
         });
     }
+    checkCart()
 };
 
-const isExistingProduct = (product) => cart.some(game => game.id === product.id)
-// -----------------------------------------------------------------------------------------------
 
+const renderBubble = () => {
+
+    cartBubble.textContent = cart.reduce((acc, cur) => acc + cur.units, 0)
+
+    if (cart.some(a => a.units === 0)) {
+        cartBubble.className += ' display-none'
+    } else cartBubble.textContent = cart.reduce((acc, cur) => acc + cur.units, 1)
+};
+
+const checkCart = () => {
+    saveLocalStorage(cart);
+    renderCart(cart);
+    renderBubble()
+};
+
+const unitHandler = e => {
+
+    if (e.target.classList.contains("cart-quantity-up")) {
+
+
+    }
+
+}
+
+const addUnitProduct = e => {
+    console.log(e)
+}
+
+const quitUnitProduct = e => {
+    console.log(e)
+}
+
+const isExistingProduct = (product) => cart.some(game => game.id === product.id)
+
+// -----------------------------------------------------------------------------------------------
 
 
 const init = () => {
@@ -243,13 +277,14 @@ const init = () => {
     btnBackPage.addEventListener('click', backPage)
     btnNextPage.addEventListener('click', nextPage)
     cartIcon.addEventListener('click', toggleCart)
-    window.addEventListener('scroll', scrollClosing);
-    overlay.addEventListener('click', OverlayClosing);
+    window.addEventListener('scroll', scrollClosing)
+    overlay.addEventListener('click', OverlayClosing)
     cardContainer.addEventListener('click', addProduct)
+    cartContainer.addEventListener('click', unitHandler)
+    checkCart()
 }
 
 document.addEventListener("DOMContentLoaded", init);
-
 
 
 

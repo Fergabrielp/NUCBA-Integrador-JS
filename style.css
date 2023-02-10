@@ -131,6 +131,10 @@ body {
   font-weight: bold;
 }
 
+.cart-title {
+  font-size: 1.5rem;
+}
+
 .cart-input {
   background-color: transparent;
   text-align: center;
@@ -145,7 +149,7 @@ body {
 
 .cart-price span,
 .cart-total-price span {
-  color: #db08089d;
+  color: red;
 }
 
 .cart-total-container {
@@ -159,6 +163,17 @@ body {
   font-size: 1.5rem;
 }
 
+.cart-quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-quantity i {
+  color: #34d304;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
 /* ----------------------------------------------------Hero----------------------------------------------------- */
 
 main {
