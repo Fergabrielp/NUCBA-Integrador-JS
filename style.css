@@ -148,19 +148,29 @@ body {
 }
 
 .cart-price span,
-.cart-total-price span {
+.cart-total-dolar {
   color: red;
+}
+
+.cart-quantity i:hover {
+  color: #0d660df1;
 }
 
 .cart-total-container {
   display: flex;
-  gap: 6rem;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .cart-total,
 .cart-total-price {
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.cart-total-price {
+  display: flex;
+  gap: 1rem;
 }
 
 .cart-quantity {
@@ -173,6 +183,34 @@ body {
   color: #34d304;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.actions-total-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.empty-cart-btn,
+.buy-cart-btn {
+  background-color: #ff000080;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.8rem 4rem;
+}
+
+.empty-cart-btn:hover {
+  cursor: pointer;
+  background-color: #8a000086;
+}
+
+.buy-cart-btn {
+  background-color: #2eb90b80;
+}
+
+.buy-cart-btn:hover {
+  cursor: pointer;
+  background-color: #165c0580;
 }
 /* ----------------------------------------------------Hero----------------------------------------------------- */
 
@@ -560,14 +598,12 @@ small a {
   }
 }
 
-.swal-modal {
-  background-color: rgba(1, 54, 9, 0.911);
-  border: 2px solid white;
-}
-
 .swal-text {
-  text-align: center;
-  color: #fff;
   font-weight: bold;
   font-size: 1.5rem;
+  text-align: center;
+}
+
+.swal-modal {
+  box-shadow: 1px 1px 15px 1px #000000cb;
 }

@@ -8,7 +8,11 @@ const cartIcon = document.querySelector('.cart-icon')
 const cartMenu = document.getElementById('cart')
 const overlay = document.querySelector('.overlay');
 const cartContainer = document.getElementById('cart-container')
+const cartTotalContainer = document.querySelector('.cart-total-container')
 const cartBubble = document.querySelector('.cart-bubble')
+const cartTotal = document.querySelector('.cart-total-value')
+const emptyBtn = document.querySelector('.empty-cart-btn')
+const buyBtn = document.querySelector('.buy-cart-btn')
 
 
 const pagination = {
@@ -191,9 +195,9 @@ const createCartProduct = product => {
 };
 
 const renderCartProduct = product => {
-    const { title, price, img, units } = product
+    const { title, price, img, units, id } = product
     return `
-    <div class="cart-model">
+            <div class="cart-model">
                 <div class="cart-img">
                 <img
                     src="${img}"
@@ -204,13 +208,19 @@ const renderCartProduct = product => {
                 <div class="cart-name">${title}</div>
                 <div class="cart-price"><span>$</span> ${price}</div>
                 <div class="cart-quantity">
-                <i class="fa-solid fa-caret-up cart-quantity-up"></i>${units}<i class="fa-solid fa-caret-down cart-quantity-down"></i>
+                <i class="fa-solid fa-caret-up cart-quantity-up" data-id=${id}></i>${units}<i class="fa-solid fa-caret-down cart-quantity-down" data-id=${id}></i>
               </div>
             </div>`
 };
 
-const renderCart = () => {
-    cartContainer.innerHTML = cart.map(renderCartProduct).join('');
+const renderCart = (cart) => {
+    if (!cart.length) {
+        cartContainer.innerHTML = `</p>Your Cart is empty</p>`
+        cartTotalContainer.classList = 'display-none'
+    } else {
+        cartContainer.innerHTML = cart.map(renderCartProduct).join('');
+        cartTotalContainer.classList = 'cart-total-container'
+    }
 }
 
 const addProduct = e => {
@@ -220,53 +230,142 @@ const addProduct = e => {
     const product = { id, title, price, img }
     if (!isExistingProduct(product)) {
         createCartProduct(product)
-        swal("Product added to Cart!", {
-            buttons: false,
-            timer: 1500,
-        });
+        swalAdd("Game added to Cart!")
     } else {
-        swal("You've added another unit!", {
-            buttons: false,
-            timer: 1500,
-        });
+        swalAdd("You've added another unit!");
     }
     checkCart()
 };
 
 
 const renderBubble = () => {
-
     cartBubble.textContent = cart.reduce((acc, cur) => acc + cur.units, 0)
-
-    if (cart.some(a => a.units === 0)) {
-        cartBubble.className += ' display-none'
-    } else cartBubble.textContent = cart.reduce((acc, cur) => acc + cur.units, 1)
 };
 
 const checkCart = () => {
     saveLocalStorage(cart);
     renderCart(cart);
     renderBubble()
+    calculateTotal()
 };
 
 const unitHandler = e => {
 
     if (e.target.classList.contains("cart-quantity-up")) {
-
-
+        if (isExistingProduct(e.target.dataset)) {
+            const target = cart.filter(c => c.id === e.target.dataset.id)
+            target[0].units += 1
+            checkCart()
+        }
     }
-
+    if (e.target.classList.contains("cart-quantity-down")) {
+        if (isExistingProduct(e.target.dataset)) {
+            const target = cart.filter(c => c.id === e.target.dataset.id)
+            if (target[0].units >= 2) {
+                target[0].units -= 1
+                checkCart()
+            } else {
+                swalDelete(e.target.dataset.id)
+            }
+        }
+    }
+    renderCart(cart);
 }
 
-const addUnitProduct = e => {
-    console.log(e)
+const swalAdd = (msg) => {
+    swal(msg, {
+        buttons: false,
+        timer: 1500,
+    });
 }
 
-const quitUnitProduct = e => {
-    console.log(e)
+const swalDelete = (id) => {
+    swal({
+        title: "You're going to delete this Game from your Cart",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Game deleted from your Cart", {
+                    icon: "success",
+                });
+                deleteProduct(id)
+            } else {
+                swal("Your Game is still in your Cart");
+            }
+        });
+}
+
+const swalDeleteAll = () => {
+    swal({
+        title: "You're going to delete all your games from your Cart",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Your Cart is empty", {
+                    icon: "success",
+                });
+                cart = []
+                checkCart()
+            } else {
+                swal("Your Game is still in your Cart");
+            }
+        });
+}
+
+const swalBuy = () => {
+    const sound = new Audio('./assets/audio/tada.mp3')
+    const gamesCount = cart.reduce((acc, cur) => acc + cur.units, 0)
+    const sum = cart.reduce((acc, cur) => acc + Number(cur.price) * cur.units, 0)
+    const total = sum.toFixed(2)
+
+    swal({
+        title: "Are you shure to buy these games?",
+        text: `You're going to buy ${gamesCount} game(s) for $${total}`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("🎉Congratulations, now let's play!🎉", {
+                    icon: "success",
+                });
+                sound.play()
+                cart = []
+                checkCart()
+            } else {
+                swal("Ok, let's add more games 😉");
+            }
+        });
+}
+
+
+const deleteProduct = id => {
+    cart = cart.filter(c => c.id !== id)
+    checkCart()
 }
 
 const isExistingProduct = (product) => cart.some(game => game.id === product.id)
+
+const calculateTotal = () => {
+    const sum = cart.reduce((acc, cur) => acc + Number(cur.price) * cur.units, 0)
+    const total = sum.toFixed(2)
+    cartTotal.textContent = total
+}
+
+const emptyCart = () => {
+    swalDeleteAll()
+}
+
+const buyProducts = () => {
+    swalBuy()
+}
 
 // -----------------------------------------------------------------------------------------------
 
@@ -281,6 +380,9 @@ const init = () => {
     overlay.addEventListener('click', OverlayClosing)
     cardContainer.addEventListener('click', addProduct)
     cartContainer.addEventListener('click', unitHandler)
+    emptyBtn.addEventListener('click', emptyCart)
+    buyBtn.addEventListener('click', buyProducts)
+
     checkCart()
 }
 
