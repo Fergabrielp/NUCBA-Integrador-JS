@@ -607,3 +607,14 @@ small a {
 .swal-modal {
   box-shadow: 1px 1px 15px 1px #000000cb;
 }
+
+/* ----------------------------------------Media Queries------------------------------------------------------ */
+
+@media (max-width: 450px) {
+  .hero {
+    display: none;
+  }
+  .category {
+    margin-top: 6rem;
+  }
+}
