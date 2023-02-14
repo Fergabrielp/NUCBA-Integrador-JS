@@ -237,9 +237,30 @@ main {
   justify-content: center;
   align-items: center;
   font-family: "Anton", sans-serif;
-  font-size: 9rem;
+  font-size: 8rem;
 }
 
+.hero-text span {
+  display: block;
+  white-space: nowrap;
+  border-right: 2px solid;
+  width: 14ch;
+
+  animation: typing 2s steps(14), blink 0.5s infinite step-end alternate;
+  overflow: hidden;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
 /* ----------------------------------------------------Categories----------------------------------------------------- */
 
 .category {
@@ -318,7 +339,6 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
 }
 
 .price {
@@ -326,6 +346,19 @@ main {
 }
 
 .price span {
+  color: #db08089d;
+}
+
+.favs-icon {
+  font-size: 1.8rem;
+  margin-left: 7rem;
+}
+
+.favs-icon:hover {
+  cursor: pointer;
+}
+
+.favs-icon-selected {
   color: #db08089d;
 }
 
@@ -396,7 +429,7 @@ main {
   justify-content: center;
   align-items: center;
   margin: 20vh auto;
-  width: 30rem;
+  width: 21rem;
   padding: 2rem 0;
   background-color: #17171ad0;
   border: 2px solid #373742;
@@ -419,8 +452,8 @@ hr {
 
 .back-icon a {
   position: absolute;
-  bottom: 29rem;
-  left: 25rem;
+  bottom: 26rem;
+  left: 18rem;
   font-size: 4rem;
   color: #8707ff;
 }
@@ -431,8 +464,8 @@ hr {
 
 .back-icon-register a {
   position: absolute;
-  bottom: 35rem;
-  left: 25rem;
+  bottom: 30rem;
+  left: 18rem;
   font-size: 4rem;
   color: #e01313b6;
 }
@@ -458,7 +491,7 @@ hr {
 .input-form {
   padding: 0.5rem;
   height: 2.3rem;
-  max-width: 19rem;
+  max-width: 15rem;
   font-size: larger;
 }
 
@@ -616,5 +649,21 @@ small a {
   }
   .category {
     margin-top: 6rem;
+  }
+  .card {
+    width: 22rem;
+  }
+  .card img {
+    width: 19.5rem;
+  }
+
+  .cart {
+    width: 22rem;
+  }
+
+  .btn-category {
+    width: 8rem;
+    font-size: 0.8rem;
+    padding: 1rem 0;
   }
 }

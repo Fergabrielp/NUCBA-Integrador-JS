@@ -320,6 +320,7 @@ const swalDeleteAll = () => {
 
 const swalBuy = () => {
     const sound = new Audio('./assets/audio/tada.mp3')
+    sound.volume = 0.1
     const gamesCount = cart.reduce((acc, cur) => acc + cur.units, 0)
     const sum = cart.reduce((acc, cur) => acc + Number(cur.price) * cur.units, 0)
     const total = sum.toFixed(2)
