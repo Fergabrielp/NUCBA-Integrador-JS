@@ -13,6 +13,8 @@ const cartBubble = document.querySelector('.cart-bubble')
 const cartTotal = document.querySelector('.cart-total-value')
 const emptyBtn = document.querySelector('.empty-cart-btn')
 const buyBtn = document.querySelector('.buy-cart-btn')
+const loginIcon = document.querySelector('.login-icon')
+const logoutIcon = document.querySelector('.log-out')
 
 
 const pagination = {
@@ -25,6 +27,7 @@ const pagination = {
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+let logged = Boolean(localStorage.getItem('logged'));
 
 const saveLocalStorage = cartList => {
     localStorage.setItem('cart', JSON.stringify(cartList));
@@ -44,6 +47,22 @@ const options = {
 };
 
 // ---------------------------------------------------------------------------------------
+
+const checkLogging = (logged) => {
+    if (logged) {
+        loginIcon.classList = 'display-none'
+        cardContainer
+    } else {
+        logoutIcon.classList = 'display-none'
+        loginIcon.classList = 'fa-sharp fa-solid fa-user login-icon'
+        cartIcon.classList = 'display-none'
+
+    }
+}
+
+const logout = e => {
+    swallogut()
+}
 
 const fetching = async (urlFilter) => {
     showSpinner(true)
@@ -226,15 +245,19 @@ const renderCart = (cart) => {
 const addProduct = e => {
 
     if (!e.target.classList.contains('btn-add-cart')) return;
-    const { id, title, price, img } = e.target.dataset;
-    const product = { id, title, price, img }
-    if (!isExistingProduct(product)) {
-        createCartProduct(product)
-        swalAdd("Game added to Cart!")
+    if (logged) {
+        const { id, title, price, img } = e.target.dataset;
+        const product = { id, title, price, img }
+        if (!isExistingProduct(product)) {
+            createCartProduct(product)
+            swalAdd("Game added to Cart!")
+        } else {
+            swalAdd("You've added another unit!");
+        }
+        checkCart()
     } else {
-        swalAdd("You've added another unit!");
+        swalAdd("Plase login to add Games in your Cart");
     }
-    checkCart()
 };
 
 
@@ -278,6 +301,28 @@ const swalAdd = (msg) => {
         timer: 1500,
     });
 }
+
+const swallogut = () => {
+    swal({
+        title: "Are you sure to logout?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willLogout) => {
+            if (willLogout) {
+                swal("Logout Success", {
+                    icon: "success",
+                });
+                localStorage.removeItem('logged')
+                checkLogging(false)
+                window.location.href = "/index.html";
+            } else {
+                swal("You're still login");
+            }
+        });
+}
+
 
 const swalDelete = (id) => {
     swal({
@@ -332,8 +377,8 @@ const swalBuy = () => {
         buttons: true,
         dangerMode: true,
     })
-        .then((willDelete) => {
-            if (willDelete) {
+        .then((willBuy) => {
+            if (willBuy) {
                 swal("🎉Congratulations, now let's play!🎉", {
                     icon: "success",
                 });
@@ -383,8 +428,9 @@ const init = () => {
     cartContainer.addEventListener('click', unitHandler)
     emptyBtn.addEventListener('click', emptyCart)
     buyBtn.addEventListener('click', buyProducts)
-
+    logoutIcon.addEventListener('click', logout)
     checkCart()
+    checkLogging(logged)
 }
 
 document.addEventListener("DOMContentLoaded", init);

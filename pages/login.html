@@ -26,9 +26,17 @@
     <title>Login</title>
   </head>
   <body>
+    <div class="warning">
+      <i class="fa-solid fa-exclamation warning-icon"></i>
+      <p class="warning-text">
+        El Login funciona de manera correcta con un único usuario que se
+        registre previamente, pero a fines de ejemplo los datos serán guardados
+        (de manera visible) en LocalStorage.
+      </p>
+    </div>
     <div class="login-card">
       <div class="back-icon">
-        <a href="/index.html"><i class="fa-solid fa-caret-left"></i></a>
+        <a href="/index.html"></a>
       </div>
       <h1 class="login-title">Login</h1>
       <hr />
@@ -45,12 +53,15 @@
           ></label>
           <input class="input-form" type="password" placeholder="password" />
         </div>
+        <small class="error-msg"></small>
         <button class="btn-login" type="submit">Login</button>
-        <small
-          >No tienes cuenta?
-          <a href="/pages/register.html">Registrate</a></small
-        >
       </form>
+      <small
+        >No tienes cuenta? <a href="/pages/register.html">Registrate</a></small
+      >
+      <small>Back to <a href="/index.html">Home</a></small>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/login.js"></script>
   </body>
 </html>

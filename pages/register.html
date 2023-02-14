@@ -26,9 +26,17 @@
     <title>Register</title>
   </head>
   <body>
+    <div class="warning">
+      <i class="fa-solid fa-exclamation warning-icon"></i>
+      <p class="warning-text">
+        El Login funciona de manera correcta con el usuario que se registre
+        previamente, pero a fines de ejemplo los datos serán guardados (de
+        manera visible) en LocalStorage.
+      </p>
+    </div>
     <div class="login-card register">
       <div class="back-icon-register">
-        <a href="/index.html"><i class="fa-solid fa-caret-left"></i></a>
+        <a href="/index.html"></a>
       </div>
       <h1 class="login-title">Register</h1>
       <hr />
@@ -55,11 +63,15 @@
             placeholder="repeat password"
           />
         </div>
+        <small class="error-msg"></small>
         <button class="btn-register" type="submit">Registrarse</button>
-        <small
-          >¿Ya tienes una cuenta? <a href="/pages/login.html">Login</a></small
-        >
       </form>
+      <small
+        >¿Ya tienes una cuenta? <a href="/pages/login.html">Login</a></small
+      >
+      <small>Back to <a href="/index.html">Home</a></small>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/register.js"></script>
   </body>
 </html>

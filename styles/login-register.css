@@ -12,14 +12,28 @@ body {
   font-family: "Nunito", sans-serif;
 }
 
+.warning {
+  display: flex;
+  margin: 1rem auto;
+  border: 2px solid #ce2b16;
+  max-width: 30rem;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.warning-icon {
+  color: #ce2b16;
+  font-size: 5rem;
+}
+
 .login-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20vh auto;
+  margin: 1vh auto;
   width: 21rem;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   background-color: #17171ad0;
   border: 2px solid #373742;
   box-shadow: 1px 1px 15px 1px #7508db9d;
@@ -37,30 +51,6 @@ hr {
   width: 20rem;
   margin: 1rem;
   box-shadow: 1px 1px 15px 1px #f3f0f08f;
-}
-
-.back-icon a {
-  position: absolute;
-  bottom: 26rem;
-  left: 18rem;
-  font-size: 4rem;
-  color: #8707ff;
-}
-
-.back-icon a:hover {
-  color: #460385;
-}
-
-.back-icon-register a {
-  position: absolute;
-  bottom: 30rem;
-  left: 18rem;
-  font-size: 4rem;
-  color: #e01313b6;
-}
-
-.back-icon-register a:hover {
-  color: #a50a0ab6;
 }
 
 .login-form {
@@ -116,4 +106,8 @@ small {
 
 small a {
   color: #8707ff;
+}
+
+.error-msg {
+  color: #ce2b16;
 }
