@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #17171f;
   color: white;
@@ -62,6 +66,15 @@ body.light-mode .num-page {
 
 body.light-mode footer a {
   color: #dfdfdf;
+}
+
+body.light-mode .cart-icon {
+  color: #17171a;
+}
+
+body.light-mode .cart {
+  background-color: #dfdfdf;
+  color: #080116;
 }
 /* ----------------------------------------------------Header----------------------------------------------------- */
 
