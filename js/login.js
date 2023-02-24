@@ -34,17 +34,17 @@ const handleSubmit = (e) => {
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     if (email === "" || password === "") {
-        renderError("No pueden estar vacios")
+        renderError("Fields can't be empty")
         return;
     }
 
     if (email !== "" && !regex.test(email)) {
-        renderError("Escribe una dirección valida")
+        renderError("Incorrect email")
         return;
     }
 
     if (email !== correctEmail || password !== correctPass) {
-        renderError("Email o Password incorrecto")
+        renderError("Incorrect password or email")
         return;
     }
 

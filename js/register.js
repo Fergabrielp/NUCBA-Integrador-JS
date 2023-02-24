@@ -30,21 +30,26 @@ const handleSubmit = (e) => {
     const email = e.target[0].value;
     const password = e.target[1].value;
     const rePassword = e.target[2].value;
-    const regex =
-        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
     if (email === "" || password === "" || rePassword === "") {
-        renderError("No pueden estar vacios")
+        renderError("Fields can't be empty")
         return;
     }
 
-    if (email !== "" && !regex.test(email)) {
-        renderError("Escribe una dirección valida")
+    if (email !== "" && !regexEmail.test(email)) {
+        renderError("Incorrect email")
+        return;
+    }
+
+    if (password !== "" && !regexPass.test(password)) {
+        renderError("Password needs at least 6 alphanumeric characters")
         return;
     }
 
     if (password !== rePassword) {
-        renderError("Los passwords deben ser iguales")
+        renderError("Passwords must match")
         return;
     }
 

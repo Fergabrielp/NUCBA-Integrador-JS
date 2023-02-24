@@ -109,5 +109,6 @@ small a {
 }
 
 .error-msg {
+  text-align: center;
   color: #ce2b16;
 }

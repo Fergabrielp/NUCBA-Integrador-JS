@@ -15,7 +15,11 @@ const emptyBtn = document.querySelector('.empty-cart-btn')
 const buyBtn = document.querySelector('.buy-cart-btn')
 const loginIcon = document.querySelector('.login-icon')
 const logoutIcon = document.querySelector('.log-out')
+const btnLight = document.getElementById('btn-light')
+const body = document.getElementById('body')
 
+
+console.log(btnLight)
 
 const pagination = {
     start: 0,
@@ -256,7 +260,7 @@ const addProduct = e => {
         }
         checkCart()
     } else {
-        swalAdd("Plase login to add Games in your Cart");
+        swalAdd("Plase login to add Games to Cart");
     }
 };
 
@@ -325,6 +329,7 @@ const swallogut = () => {
 
 
 const swalDelete = (id) => {
+    const soundDelete = new Audio('../assets/audio/recycle-bin.mp3')
     swal({
         title: "You're going to delete this Game from your Cart",
         icon: "warning",
@@ -336,6 +341,7 @@ const swalDelete = (id) => {
                 swal("Game deleted from your Cart", {
                     icon: "success",
                 });
+                soundDelete.play()
                 deleteProduct(id)
             } else {
                 swal("Your Game is still in your Cart");
@@ -344,6 +350,7 @@ const swalDelete = (id) => {
 }
 
 const swalDeleteAll = () => {
+    const soundDelete = new Audio('../assets/audio/recycle-bin.mp3')
     swal({
         title: "You're going to delete all your games from your Cart",
         icon: "warning",
@@ -356,6 +363,7 @@ const swalDeleteAll = () => {
                     icon: "success",
                 });
                 cart = []
+                soundDelete.play()
                 checkCart()
             } else {
                 swal("Your Game is still in your Cart");
@@ -413,6 +421,10 @@ const buyProducts = () => {
     swalBuy()
 }
 
+const handleLightMode = () => {
+    body.classList.toggle('light-mode')
+}
+
 // -----------------------------------------------------------------------------------------------
 
 
@@ -429,6 +441,7 @@ const init = () => {
     emptyBtn.addEventListener('click', emptyCart)
     buyBtn.addEventListener('click', buyProducts)
     logoutIcon.addEventListener('click', logout)
+    btnLight.addEventListener('click', handleLightMode)
     checkCart()
     checkLogging(logged)
 }
