@@ -14,6 +14,7 @@ body {
   background-color: #17171f;
   color: white;
   font-family: "Nunito", sans-serif;
+  transition: ease 1s;
 }
 
 .display-none {
@@ -24,6 +25,7 @@ body {
 
 body.light-mode {
   background-color: #dfdfdf;
+  transition: ease 1s;
 }
 
 body.light-mode header {
@@ -354,7 +356,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
   gap: 1rem 3rem;
   flex-wrap: wrap;
 }
@@ -511,18 +512,17 @@ main {
 /* -----------------------------------Overlay--------------------------------------------------------- */
 
 .overlay {
+  display: none;
   position: absolute;
   top: 65px;
   left: 0;
   height: 100vh;
   width: 100%;
   z-index: 1;
-  /*Efecto de Glassmorphismo*/
   background: rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  display: none;
 }
 
 .show-overlay {
@@ -622,22 +622,33 @@ main {
 
 /* ----------------------------------------Media Queries------------------------------------------------------ */
 
-@media (max-width: 450px) {
+@media (max-width: 700px) {
   .hero {
     display: none;
   }
   .category {
-    margin-top: 6rem;
+    margin-top: 2rem;
   }
+
+  .cards-section {
+    margin-top: 2rem;
+  }
+
   .card {
     width: 22rem;
   }
+
   .card img {
     width: 19.5rem;
   }
 
   .cart {
-    width: 22rem;
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .cart-model {
+    gap: 1rem;
   }
 
   .btn-category {
