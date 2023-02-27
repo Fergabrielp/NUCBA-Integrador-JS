@@ -19,8 +19,6 @@ const btnLight = document.getElementById('btn-light')
 const body = document.getElementById('body')
 
 
-console.log(btnLight)
-
 const pagination = {
     start: 0,
     end: 12,
