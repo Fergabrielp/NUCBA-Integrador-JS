@@ -249,7 +249,8 @@ const renderCart = (cart) => {
 }
 
 const addProduct = e => {
-
+    const soundAdd = new Audio('../assets/audio/coin.wav')
+    soundAdd.volume = 0.05
     if (!e.target.classList.contains('btn-add-cart')) return;
     if (logged) {
         const { id, title, price, img } = e.target.dataset;
@@ -257,8 +258,9 @@ const addProduct = e => {
         if (!isExistingProduct(product)) {
             createCartProduct(product)
             swalAdd("Game added to Cart!")
+            soundAdd.play()
         } else {
-            swalAdd("You've added another unit!");
+            swalAdd("Game already added!");
         }
         checkCart()
     } else {
@@ -332,6 +334,7 @@ const swallogut = () => {
 
 const swalDelete = (id) => {
     const soundDelete = new Audio('../assets/audio/recycle-bin.mp3')
+    soundDelete.volume = 1
     swal({
         title: "You're going to delete this Game from your Cart",
         icon: "warning",
@@ -353,6 +356,7 @@ const swalDelete = (id) => {
 
 const swalDeleteAll = () => {
     const soundDelete = new Audio('../assets/audio/recycle-bin.mp3')
+    soundDelete.volume = 1
     swal({
         title: "You're going to delete all your games from your Cart",
         icon: "warning",
@@ -375,7 +379,7 @@ const swalDeleteAll = () => {
 
 const swalBuy = () => {
     const sound = new Audio('./assets/audio/tada.mp3')
-    sound.volume = 0.1
+    sound.volume = 0.2
     const gamesCount = cart.reduce((acc, cur) => acc + cur.units, 0)
     const sum = cart.reduce((acc, cur) => acc + Number(cur.price) * cur.units, 0)
     const total = sum.toFixed(2)
