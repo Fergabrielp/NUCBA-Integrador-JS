@@ -17,6 +17,8 @@ const loginIcon = document.querySelector('.login-icon')
 const logoutIcon = document.querySelector('.log-out')
 const btnLight = document.getElementById('btn-light')
 const body = document.getElementById('body')
+const btnLogin = document.getElementById('btn-login')
+
 
 
 const pagination = {
@@ -53,11 +55,13 @@ const options = {
 const checkLogging = (logged) => {
     if (logged) {
         loginIcon.classList = 'display-none'
+        btnLogin.classList = 'display-none'
         cardContainer
     } else {
         logoutIcon.classList = 'display-none'
         loginIcon.classList = 'fa-sharp fa-solid fa-user login-icon'
         cartIcon.classList = 'display-none'
+        btnLogin.classList.remove('display-none')
 
     }
 }
