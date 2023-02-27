@@ -142,7 +142,7 @@ const backPage = () => {
 
 const nextPage = () => {
     window.scroll({
-        top: 500,
+        top: 1000,
         behavior: 'smooth'
     });
 
